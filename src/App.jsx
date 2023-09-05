@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.css";
-const allItems = [
+import QuastionList from "./Components/QuastionList";
+import Buttons from "./Components/Buttons";
+import Counter from "./Components/Counter";
+const ReactQuestions = [
   "Для чого потрібний Virtual DOM у React?",
   "Яка різниця між virtual DOM та shadow DOM?",
   "Яка різниця між state та props?",
@@ -35,16 +38,35 @@ const allItems = [
   "Чим відрізняється action від action creator?",
 ];
 
+const JSQuestions = [
+  "Які перебираючі методи масивів ви знаєте?",
+  "Що таке this?",
+  "Що таке прототип об'єкта?",
+  "Чим відрізняється функція конструктор та клас?",
+  "Що таке Promise?",
+  "Для чого потрібна async/await функція?",
+  "Як обробляти помилки в async/await функціях?",
+];
+
 const App = () => {
-  const [availableItems, setAvailableItems] = useState([...allItems]);
+  const [availableTheam, setAvailableTheam] = useState("React");
+  const [availableItems, setAvailableItems] = useState(
+    availableTheam === "React" ? [...ReactQuestions] : [...JSQuestions]
+  );
   const [selectedItems, setSelectedItems] = useState([]);
   const [itemColors, setItemColors] = useState([]);
-  const [questionsFinished, setQuestionsFinished] = useState(false);
+
   const [greenItemCount, setGreenItemCount] = useState(0);
+  const [redItemCount, setRedItemCount] = useState(0);
+
+  const [questionsFinished, setQuestionsFinished] = useState(false);
 
   useEffect(() => {
     const greenCount = itemColors.filter((color) => color === "green").length;
     setGreenItemCount(greenCount);
+
+    const redCount = itemColors.filter((color) => color === "red").length;
+    setRedItemCount(redCount);
   }, [itemColors]);
 
   const handleRandomClick = () => {
@@ -69,66 +91,38 @@ const App = () => {
     setSelectedItems([]);
     setItemColors([]);
     setQuestionsFinished(false);
-    setAvailableItems([...allItems]);
+
+    if (availableTheam === "React") {
+      setAvailableItems([...ReactQuestions]);
+    } else {
+      setAvailableItems([...JSQuestions]);
+    }
   };
 
-  const handleItemClickTrue = (index) => {
-    const updatedColors = [...itemColors];
-    updatedColors[index] = "green";
-    setItemColors(updatedColors);
-  };
-
-  const handleItemClickFalse = (index) => {
-    const updatedColors = [...itemColors];
-    updatedColors[index] = "red";
-    setItemColors(updatedColors);
-  };
-
-  const handleItemClickNormal = (index) => {
-    const updatedColors = [...itemColors];
-    updatedColors[index] = "black";
-    setItemColors(updatedColors);
+  const handleTheamChange = () => {
+    if (availableTheam === "React") {
+      setAvailableTheam("JavaScript");
+    } else {
+      setAvailableTheam("React");
+    }
   };
 
   return (
     <div className={styles.box}>
+      <Buttons
+        handleRandomClick={handleRandomClick}
+        handleReloud={handleReloud}
+      />
+      <QuastionList
+        questionsFinished={questionsFinished}
+        selectedItems={selectedItems}
+        itemColors={itemColors}
+        setItemColors={setItemColors}
+      />
+      <Counter greenItemCount={greenItemCount} redItemCount={redItemCount} />
       <div>
-        <div onClick={handleRandomClick} className={styles.button2}>
-          Згенерувати питання
-        </div>
-        <div onClick={handleReloud} className={styles.button2}>
-          Оновити
-        </div>
-      </div>
-      <div className={styles.list}>
-        <h3 className={styles.header}>Обрані елементи:</h3>
-        <ul style={{ paddingLeft: 0 }}>
-          {selectedItems.map((item, index) => (
-            <li
-              key={index}
-              className={styles.item}
-              style={{ color: itemColors[index] }}
-            >
-              <div
-                className={styles.item_true}
-                onClick={() => handleItemClickTrue(index)}
-              ></div>
-              <div
-                className={styles.item_false}
-                onClick={() => handleItemClickFalse(index)}
-              ></div>
-              <div onClick={() => handleItemClickNormal(index)}>{item}</div>
-            </li>
-          ))}
-        </ul>
-        {questionsFinished && (
-          <div className={styles.message}>
-            Всі питання вже використані. Немає можливості додавати нові.
-          </div>
-        )}
-      </div>
-      <div className={styles.counter}>
-        <p>Правильні відповіді: {greenItemCount}</p>
+        <div onClick={handleTheamChange}>React</div>
+        <div onClick={handleTheamChange}>JavaScript</div>
       </div>
     </div>
   );
