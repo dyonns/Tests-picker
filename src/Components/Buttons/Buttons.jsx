@@ -1,8 +1,8 @@
-import styles from "../style.module.css";
+import styles from "./Buttons.module.css";
 
 const Buttons = ({ handleRandomClick, handleReloud }) => {
   return (
-    <div>
+    <div className={styles.box}>
       <div onClick={() => handleRandomClick()} className={styles.button2}>
         Згенерувати питання
       </div>

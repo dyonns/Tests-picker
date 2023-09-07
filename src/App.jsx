@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.css";
 import QuastionList from "./Components/QuastionList";
-import Buttons from "./Components/Buttons";
-import Counter from "./Components/Counter";
+import Buttons from "./Components/Buttons/Buttons";
+import Counter from "./Components/Counter/Counter";
+import Stream from "./Components/Stream/Stream";
+import Languages from "./Components/Languages/Languages";
 const ReactQuestions = [
   "Для чого потрібний Virtual DOM у React?",
   "Яка різниця між virtual DOM та shadow DOM?",
@@ -39,6 +41,7 @@ const ReactQuestions = [
 ];
 
 const JSQuestions = [
+  "Які типи даних присутні в JavaScript?",
   "Які перебираючі методи масивів ви знаєте?",
   "Що таке this?",
   "Що таке прототип об'єкта?",
@@ -46,6 +49,9 @@ const JSQuestions = [
   "Що таке Promise?",
   "Для чого потрібна async/await функція?",
   "Як обробляти помилки в async/await функціях?",
+  "Як працює прототипне наслідування в JavaScript?",
+  "Як створити об'єкт у якому не буде прототипу?",
+  "Як перевірити чи є властивість об'єкта особистою властивістю або це властивість прототипу?",
 ];
 
 const App = () => {
@@ -55,16 +61,13 @@ const App = () => {
   );
   const [selectedItems, setSelectedItems] = useState([]);
   const [itemColors, setItemColors] = useState([]);
-
   const [greenItemCount, setGreenItemCount] = useState(0);
   const [redItemCount, setRedItemCount] = useState(0);
-
   const [questionsFinished, setQuestionsFinished] = useState(false);
 
   useEffect(() => {
     const greenCount = itemColors.filter((color) => color === "green").length;
     setGreenItemCount(greenCount);
-
     const redCount = itemColors.filter((color) => color === "red").length;
     setRedItemCount(redCount);
   }, [itemColors]);
@@ -99,30 +102,34 @@ const App = () => {
     }
   };
 
-  const handleTheamChange = () => {
-    if (availableTheam === "React") {
-      setAvailableTheam("JavaScript");
-    } else {
-      setAvailableTheam("React");
-    }
-  };
-
   return (
     <div className={styles.box}>
-      <Buttons
-        handleRandomClick={handleRandomClick}
-        handleReloud={handleReloud}
-      />
-      <QuastionList
-        questionsFinished={questionsFinished}
-        selectedItems={selectedItems}
-        itemColors={itemColors}
-        setItemColors={setItemColors}
-      />
-      <Counter greenItemCount={greenItemCount} redItemCount={redItemCount} />
+      <div style={{ display: "flex" }}>
+        <div className={styles.box_buttons}>
+          <Buttons
+            handleRandomClick={handleRandomClick}
+            handleReloud={handleReloud}
+          />
+          <Counter
+            greenItemCount={greenItemCount}
+            redItemCount={redItemCount}
+          />
+        </div>
+        <QuastionList
+          questionsFinished={questionsFinished}
+          selectedItems={selectedItems}
+          itemColors={itemColors}
+          setItemColors={setItemColors}
+        />
+      </div>
+
       <div>
-        <div onClick={handleTheamChange}>React</div>
-        <div onClick={handleTheamChange}>JavaScript</div>
+        <Languages
+          availableTheam={availableTheam}
+          setAvailableTheam={setAvailableTheam}
+        />
+
+        <Stream />
       </div>
     </div>
   );

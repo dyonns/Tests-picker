@@ -1,0 +1,22 @@
+.box {
+  padding: 20px;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  width: 200px;
+  margin-top: 20px;
+  padding: 5px;
+
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+
+  border-radius: 15px;
+  background: #8483c3;
+  box-shadow: -6px 5px 5px #646494, 9px -4px 15px #a4a2f2;
+}
