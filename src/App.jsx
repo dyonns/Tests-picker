@@ -5,6 +5,7 @@ import Buttons from "./Components/Buttons/Buttons";
 import Counter from "./Components/Counter/Counter";
 import Stream from "./Components/Stream/Stream";
 import Languages from "./Components/Languages/Languages";
+import Speech from "./Components/Speech";
 const ReactQuestions = [
   "Для чого потрібний Virtual DOM у React?",
   "Яка різниця між virtual DOM та shadow DOM?",
@@ -130,6 +131,7 @@ const App = () => {
         />
 
         <Stream />
+        {/* <Speech /> */}
       </div>
     </div>
   );

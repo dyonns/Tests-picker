@@ -13,8 +13,8 @@ const Languages = ({ availableTheam, setAvailableTheam }) => {
         <div
           className={
             availableTheam === "React"
-              ? style.languageNone
-              : style.languageActive
+              ? style.languageActive
+              : style.languageNone
           }
           onClick={handleTheamChange}
         >
@@ -25,8 +25,8 @@ const Languages = ({ availableTheam, setAvailableTheam }) => {
         <div
           className={
             availableTheam === "JavaScript"
-              ? style.language
-              : style.languageActive
+              ? style.languageActive
+              : style.language
           }
           onClick={handleTheamChange}
         >
